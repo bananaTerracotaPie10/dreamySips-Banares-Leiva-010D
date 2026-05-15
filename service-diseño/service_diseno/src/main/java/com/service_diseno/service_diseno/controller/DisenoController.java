@@ -45,4 +45,14 @@ public class DisenoController {
         return ResponseEntity.ok("Diseño eliminado");
     }
 
+    @GetMapping("/color")
+    public ResponseEntity<List<Diseno>> obtenerDisenosColor(){
+        return ResponseEntity.ok(disenoService.listarDisenosColor());
+    }
+
+    @GetMapping("/detalle/{idDetalle}")
+    public ResponseEntity<List<Diseno>> buscarPorDetalle(@PathVariable Long idDetalle){
+        return ResponseEntity.ok(disenoService.buscarPorDetalle(idDetalle));
+    }
+
 }

@@ -35,4 +35,15 @@ public class DisenoService {
         disenoRepository.deleteById(id);
     }
 
+    public List<Diseno> buscarPorDetalle(Long idDetalle){
+        return disenoRepository.findByIdDetalle(idDetalle);
+    }
+
+    public List<Diseno> listarDisenosColor(){
+        return disenoRepository.buscarDisenosColor();
+
+    }
+
+
+
 }

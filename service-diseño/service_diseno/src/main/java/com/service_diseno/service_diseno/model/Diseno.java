@@ -35,4 +35,5 @@ public class Diseno {
 
     @Column(name = "id_detalle")
     private Long idDetalle;
+
 }
