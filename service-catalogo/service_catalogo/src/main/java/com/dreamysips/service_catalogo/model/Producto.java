@@ -21,10 +21,11 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_producto")
     private Long idProducto;
-
+    
+    @Column(name = "tipo_producto")
     private String tipoProducto;
     private int valor;
     private int stock;
-    private boolean estado;
+    private Boolean estado;
 
 }
