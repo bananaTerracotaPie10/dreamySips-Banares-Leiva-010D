@@ -16,7 +16,7 @@ import com.dreamysips.service_catalogo.model.Producto;
 import com.dreamysips.service_catalogo.service.ProductoService;
 
 @RestController
-@RequestMapping("/api/v1/producto")
+@RequestMapping("/api/v1/productos")
 public class ProductoController {
 
     @Autowired
