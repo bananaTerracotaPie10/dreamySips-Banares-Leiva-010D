@@ -10,13 +10,13 @@ spring:
       routes:
         # MICRO SERVICIO CLIENTES
         - id: service-clientes
-          uri: http://localhost:8081
+          uri: http://localhost:8082
           predicates:
             - Path=/api/v1/clientes/**
 
         # MICRO SERVICIO PEDIDOS
         - id: service-pedidos
-          uri: http://localhost:8082
+          uri: http://localhost:8084
           predicates:
             - Path=/api/v1/pedidos/**
 
@@ -28,12 +28,12 @@ spring:
 
         # MICRO SERVICIO DISEÑO
         - id: service-diseno
-          uri: http://localhost:8084
+          uri: http://localhost:8085
           predicates:
             - Path=/api/v1/disenos/**
 
         # MICRO SERVICIO RESEÑAS
         - id: service-resenas
-          uri: http://localhost:8085
+          uri: http://localhost:8086
           predicates:
             - Path=/api/v1/resenas/**
