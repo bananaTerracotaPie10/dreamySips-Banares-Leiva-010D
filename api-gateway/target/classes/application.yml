@@ -1,0 +1,39 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        # MICRO SERVICIO CLIENTES
+        - id: service-clientes
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/v1/clientes/**
+
+        # MICRO SERVICIO PEDIDOS
+        - id: service-pedidos
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/pedidos/**
+
+        # MICRO SERVICIO CATALOGO
+        - id: service-catalogo
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/v1/productos/**
+
+        # MICRO SERVICIO DISEÑO
+        - id: service-diseno
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/v1/disenos/**
+
+        # MICRO SERVICIO RESEÑAS
+        - id: service-resenas
+          uri: http://localhost:8085
+          predicates:
+            - Path=/api/v1/resenas/**
