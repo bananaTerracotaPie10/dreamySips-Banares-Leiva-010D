@@ -10,8 +10,8 @@ Sistema de backend basado en microservicios para la gestión de un catálogo de 
 |---|---|---|---|
 | `service_cliente` | 8082 | `db_clientes` | Gestión de clientes y direcciones de envío |
 | `service_catalogo` | 8083 | `db_catalogo` | Gestión de productos y categorías |
-| `service_pedidos` | 8084 | `db_pedidos` | Gestión de pedidos y detalles de pedido |
-| `service_diseno` | 8085 | `db_disenos` | Gestión de imágenes y diseños |
+| `service_diseno` | 8084 | `db_disenos` | Gestión de imágenes y diseños |
+| `service_pedidos` | 8085 | `db_pedidos` | Gestión de pedidos y detalles de pedido |
 | `service_resenas` | 8086 | `db_resenas` | Gestión de reseñas de productos |
 
 ---
