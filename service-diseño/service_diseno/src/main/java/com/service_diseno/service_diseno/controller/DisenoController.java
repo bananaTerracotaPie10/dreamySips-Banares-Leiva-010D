@@ -11,6 +11,7 @@ import com.service_diseno.service_diseno.dto.DisenoDTO;
 import com.service_diseno.service_diseno.model.Diseno;
 import com.service_diseno.service_diseno.service.DisenoService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/v1/disenos")
+@Tag(name = "Diseños", description = "Operaciones de Diseños")
 public class DisenoController {
 
     @Autowired

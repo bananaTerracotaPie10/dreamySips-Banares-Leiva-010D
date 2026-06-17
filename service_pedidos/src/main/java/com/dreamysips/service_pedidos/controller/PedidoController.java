@@ -17,8 +17,11 @@ import com.dreamysips.service_pedidos.model.Pedido;
 import com.dreamysips.service_pedidos.service.DetallePedidoService;
 import com.dreamysips.service_pedidos.service.PedidoService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/v1/pedidos")
+@Tag(name = "Pedidos", description = "Operaciones de Pedidos")
 public class PedidoController 
 {
 

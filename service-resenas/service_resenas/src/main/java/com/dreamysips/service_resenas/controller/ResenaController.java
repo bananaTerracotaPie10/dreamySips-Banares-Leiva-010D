@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dreamysips.service_resenas.model.Resena;
 import com.dreamysips.service_resenas.service.ResenaService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("api/v1/resenas")
+@Tag(name = "Reseñas", description = "Operaciones de Reseñas")
 public class ResenaController 
 {
 

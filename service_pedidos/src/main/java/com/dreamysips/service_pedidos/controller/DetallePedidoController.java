@@ -15,15 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dreamysips.service_pedidos.model.DetallePedido;
 import com.dreamysips.service_pedidos.service.DetallePedidoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/v1/detalles")
+@Tag(name = "Detalle del pedido", description = "Operaciones de detalle del pedido")
 public class DetallePedidoController {
 
     @Autowired
     private DetallePedidoService detallePedidoService;
 
     //  agrega (crea) el detalle al pedido
-
+    @Operation(summary = "Crear detalle")
     @PostMapping("/{idPedido}")
     public DetallePedido crear(@PathVariable Long idPedido, @RequestBody DetallePedido detalle) 
     {
@@ -31,14 +35,14 @@ public class DetallePedidoController {
     }
 
     // retorna una lista con todos los detalles
-
+    @Operation(summary = "Listar los pedidos al detalle")
     @GetMapping
     public List<DetallePedido> listar() {
         return detallePedidoService.listarTodos();
     }
 
     // busca el detalle x id
-
+    @Operation(summary = "Buscar detalle por id")
     @GetMapping("/{id}")
     public ResponseEntity<DetallePedido> buscarPorId(@PathVariable Long id) 
     {
