@@ -17,8 +17,11 @@ import com.dreamysips.service_catalogo.model.Producto;
 import com.dreamysips.service_catalogo.service.CategoriaService;
 import com.dreamysips.service_catalogo.service.ProductoService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/v1/categoria")
+@Tag(name = "Categorias", description = "Operaciones de las Categorias")
 public class CategoriaController {
 
     @Autowired

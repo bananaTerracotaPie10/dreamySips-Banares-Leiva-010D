@@ -9,9 +9,13 @@ import com.example.service_notificacion.dto.Notificaciondto;
 import com.example.service_notificacion.model.Notificacion;
 import com.example.service_notificacion.service.NotificacionService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/v1/notificaciones")
+@Tag(name = "Notificaciones", description = "Operaciones de las Notificaciones")
 public class NotificacionController {
+
     private final NotificacionService service;
 
     public NotificacionController(NotificacionService service) {

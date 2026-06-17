@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dreamysips.service_catalogo.model.Producto;
 import com.dreamysips.service_catalogo.service.ProductoService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/v1/producto")
+@Tag(name = "Producto", description = "Operaciones del Producto")
 public class ProductoController {
 
     @Autowired

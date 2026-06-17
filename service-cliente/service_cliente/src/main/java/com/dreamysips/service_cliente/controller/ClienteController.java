@@ -17,10 +17,12 @@ import com.dreamysips.service_cliente.model.DireccionEnvio;
 import com.dreamysips.service_cliente.service.ClienteService;
 import com.dreamysips.service_cliente.service.DireccionEnvioService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping ("/api/v1/clientes")
-public class ClienteController 
-{
+@Tag(name = "Clientes", description = "Operaciones de clientes")
+public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;

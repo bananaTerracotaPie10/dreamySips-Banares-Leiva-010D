@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dreamysips.service_cliente.model.DireccionEnvio;
 import com.dreamysips.service_cliente.service.DireccionEnvioService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping ("/api/v1/direcciones")
+@Tag(name = "Direcciones de Envio", description = "Operaciones de las Direcciones de Envio")
 public class DireccionEnvioController 
 {
 
