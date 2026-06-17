@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import com.dreamysips.service_listadeseos.model.ListaDeseos;
 import com.dreamysips.service_listadeseos.service.ListaDeseosService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/lista-deseos")
+@Tag(name = "Lista de deseos", description = "Operaciones de la Lista de deseos")
 public class ListaDeseosController {
 
     private final ListaDeseosService service;
