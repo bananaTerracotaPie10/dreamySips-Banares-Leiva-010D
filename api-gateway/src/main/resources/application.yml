@@ -7,120 +7,106 @@ spring:
 
   cloud:
     gateway:
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: "http://localhost:8081"
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - OPTIONS
-            allowedHeaders:
-              - "*"
+      mvc:
+        routes:
 
-      server:
-        webflux:
-          routes:
+          # CLIENTES
+          - id: cliente-service
+            uri: http://localhost:8082
+            predicates:
+              - Path=/api/v1/clientes/**
 
-            # CLIENTES
-            - id: cliente-service
-              uri: http://localhost:8082
-              predicates:
-                - Path=/api/v1/clientes/**
+          # CATÁLOGO
+          - id: catalogo-service
+            uri: http://localhost:8083
+            predicates:
+              - Path=/api/v1/productos/**
 
-            # CATÁLOGO
-            - id: catalogo-service
-              uri: http://localhost:8083
-              predicates:
-                - Path=/api/v1/productos/**
+          # DISEÑOS
+          - id: diseno-service
+            uri: http://localhost:8084
+            predicates:
+              - Path=/api/v1/disenos/**
 
-            # DISEÑOS PERSONALIZADOS
-            - id: diseno-service
-              uri: http://localhost:8084
-              predicates:
-                - Path=/api/v1/disenos/**
+          # PEDIDOS
+          - id: pedidos-service
+            uri: http://localhost:8085
+            predicates:
+              - Path=/api/v1/pedidos/**
 
-            # PEDIDOS
-            - id: pedidos-service
-              uri: http://localhost:8085
-              predicates:
-                - Path=/api/v1/pedidos/**
+          # RESEÑAS
+          - id: resenas-service
+            uri: http://localhost:8086
+            predicates:
+              - Path=/api/v1/resenas/**
 
-            # RESEÑAS
-            - id: resenas-service
-              uri: http://localhost:8086
-              predicates:
-                - Path=/api/v1/resenas/**
+          # LISTA DE DESEOS
+          - id: lista-deseos-service
+            uri: http://localhost:8087
+            predicates:
+              - Path=/api/v1/listadeseos/**
 
-            # LISTA DE DESEOS
-            - id: lista-deseos-service
-              uri: http://localhost:8087
-              predicates:
-                - Path=/api/v1/listadeseos/**
+          # NOTIFICACIONES
+          - id: notificaciones-service
+            uri: http://localhost:8088
+            predicates:
+              - Path=/api/v1/notificaciones/**
 
-            # NOTIFICACIONES
-            - id: notificaciones-service
-              uri: http://localhost:8088
-              predicates:
-                - Path=/api/v1/notificaciones/**
+          # DOCS CLIENTES
+          - id: cliente-docs
+            uri: http://localhost:8082
+            predicates:
+              - Path=/docs-clientes/v3/api-docs
+            filters:
+              - SetPath=/v3/api-docs
 
-            # DOCUMENTACIÓN CLIENTES
-            - id: cliente-docs
-              uri: http://localhost:8082
-              predicates:
-                - Path=/docs-clientes/**
-              filters:
-                - RewritePath=/docs-clientes/(?<segment>.*), /v3/api-docs
+          # DOCS CATÁLOGO
+          - id: catalogo-docs
+            uri: http://localhost:8083
+            predicates:
+              - Path=/docs-catalogo/v3/api-docs
+            filters:
+              - SetPath=/v3/api-docs
 
-            # DOCUMENTACIÓN CATÁLOGO
-            - id: catalogo-docs
-              uri: http://localhost:8083
-              predicates:
-                - Path=/docs-catalogo/**
-              filters:
-                - RewritePath=/docs-catalogo/(?<segment>.*), /v3/api-docs
+          # DOCS DISEÑOS
+          - id: diseno-docs
+            uri: http://localhost:8084
+            predicates:
+              - Path=/docs-disenos/v3/api-docs
+            filters:
+              - SetPath=/v3/api-docs
 
-            # DOCUMENTACIÓN DISEÑOS
-            - id: diseno-docs
-              uri: http://localhost:8084
-              predicates:
-                - Path=/docs-disenos/**
-              filters:
-                - RewritePath=/docs-disenos/(?<segment>.*), /v3/api-docs
+          # DOCS PEDIDOS
+          - id: pedidos-docs
+            uri: http://localhost:8085
+            predicates:
+              - Path=/docs-pedidos/v3/api-docs
+            filters:
+              - SetPath=/v3/api-docs
 
-            # DOCUMENTACIÓN PEDIDOS
-            - id: pedidos-docs
-              uri: http://localhost:8085
-              predicates:
-                - Path=/docs-pedidos/**
-              filters:
-                - RewritePath=/docs-pedidos/(?<segment>.*), /v3/api-docs
+          # DOCS RESEÑAS
+          - id: resenas-docs
+            uri: http://localhost:8086
+            predicates:
+              - Path=/docs-resenas/v3/api-docs
+            filters:
+              - SetPath=/v3/api-docs
 
-            # DOCUMENTACIÓN RESEÑAS
-            - id: resenas-docs
-              uri: http://localhost:8086
-              predicates:
-                - Path=/docs-resenas/**
-              filters:
-                - RewritePath=/docs-resenas/(?<segment>.*), /v3/api-docs
+          # DOCS LISTA DE DESEOS
+          - id: lista-deseos-docs
+            uri: http://localhost:8087
+            predicates:
+              - Path=/docs-listadeseos/v3/api-docs
+            filters:
+              - SetPath=/v3/api-docs
 
-            # DOCUMENTACIÓN LISTA DE DESEOS
-            - id: lista-deseos-docs
-              uri: http://localhost:8087
-              predicates:
-                - Path=/docs-listadeseos/**
-              filters:
-                - RewritePath=/docs-listadeseos/(?<segment>.*), /v3/api-docs
-
-            # DOCUMENTACIÓN NOTIFICACIONES
-            - id: notificaciones-docs
-              uri: http://localhost:8088
-              predicates:
-                - Path=/docs-notificaciones/**
-              filters:
-                - RewritePath=/docs-notificaciones/(?<segment>.*), /v3/api-docs
+          # DOCS NOTIFICACIONES
+          - id: notificaciones-docs
+            uri: http://localhost:8088
+            predicates:
+              - Path=/docs-notificaciones/v3/api-docs
+            filters:
+              - SetPath=/v3/api-docs
 
 eureka:
   client:
@@ -130,23 +116,23 @@ eureka:
 springdoc:
   swagger-ui:
     urls:
-      - name: "Clientes API"
+      - name: Clientes API
         url: /docs-clientes/v3/api-docs
 
-      - name: "Catálogo API"
+      - name: Catálogo API
         url: /docs-catalogo/v3/api-docs
 
-      - name: "Diseños API"
+      - name: Diseños API
         url: /docs-disenos/v3/api-docs
 
-      - name: "Pedidos API"
+      - name: Pedidos API
         url: /docs-pedidos/v3/api-docs
 
-      - name: "Reseñas API"
+      - name: Reseñas API
         url: /docs-resenas/v3/api-docs
 
-      - name: "Lista de Deseos API"
+      - name: Lista de Deseos API
         url: /docs-listadeseos/v3/api-docs
 
-      - name: "Notificaciones API"
+      - name: Notificaciones API
         url: /docs-notificaciones/v3/api-docs

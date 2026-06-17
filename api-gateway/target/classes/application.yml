@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
   application:
@@ -7,33 +7,132 @@ spring:
 
   cloud:
     gateway:
-      routes:
-        # MICRO SERVICIO CLIENTES
-        - id: service-clientes
-          uri: http://localhost:8082
-          predicates:
-            - Path=/api/v1/clientes/**
+      mvc:
+        routes:
 
-        # MICRO SERVICIO PEDIDOS
-        - id: service-pedidos
-          uri: http://localhost:8084
-          predicates:
-            - Path=/api/v1/pedidos/**
+          # CLIENTES
+          - id: cliente-service
+            uri: http://localhost:8082
+            predicates:
+              - Path=/api/v1/clientes/**
 
-        # MICRO SERVICIO CATALOGO
-        - id: service-catalogo
-          uri: http://localhost:8083
-          predicates:
-            - Path=/api/v1/productos/**
+          # CATÁLOGO
+          - id: catalogo-service
+            uri: http://localhost:8083
+            predicates:
+              - Path=/api/v1/productos/**
 
-        # MICRO SERVICIO DISEÑO
-        - id: service-diseno
-          uri: http://localhost:8085
-          predicates:
-            - Path=/api/v1/disenos/**
+          # DISEÑOS
+          - id: diseno-service
+            uri: http://localhost:8084
+            predicates:
+              - Path=/api/v1/disenos/**
 
-        # MICRO SERVICIO RESEÑAS
-        - id: service-resenas
-          uri: http://localhost:8086
-          predicates:
-            - Path=/api/v1/resenas/**
+          # PEDIDOS
+          - id: pedidos-service
+            uri: http://localhost:8085
+            predicates:
+              - Path=/api/v1/pedidos/**
+
+          # RESEÑAS
+          - id: resenas-service
+            uri: http://localhost:8086
+            predicates:
+              - Path=/api/v1/resenas/**
+
+          # LISTA DE DESEOS
+          - id: lista-deseos-service
+            uri: http://localhost:8087
+            predicates:
+              - Path=/api/v1/listadeseos/**
+
+          # NOTIFICACIONES
+          - id: notificaciones-service
+            uri: http://localhost:8088
+            predicates:
+              - Path=/api/v1/notificaciones/**
+
+          # DOCS CLIENTES
+          - id: cliente-docs
+            uri: http://localhost:8082
+            predicates:
+              - Path=/docs-clientes/v3/api-docs
+            filters:
+              - SetPath=/v3/api-docs
+
+          # DOCS CATÁLOGO
+          - id: catalogo-docs
+            uri: http://localhost:8083
+            predicates:
+              - Path=/docs-catalogo/v3/api-docs
+            filters:
+              - SetPath=/v3/api-docs
+
+          # DOCS DISEÑOS
+          - id: diseno-docs
+            uri: http://localhost:8084
+            predicates:
+              - Path=/docs-disenos/v3/api-docs
+            filters:
+              - SetPath=/v3/api-docs
+
+          # DOCS PEDIDOS
+          - id: pedidos-docs
+            uri: http://localhost:8085
+            predicates:
+              - Path=/docs-pedidos/v3/api-docs
+            filters:
+              - SetPath=/v3/api-docs
+
+          # DOCS RESEÑAS
+          - id: resenas-docs
+            uri: http://localhost:8086
+            predicates:
+              - Path=/docs-resenas/v3/api-docs
+            filters:
+              - SetPath=/v3/api-docs
+
+          # DOCS LISTA DE DESEOS
+          - id: lista-deseos-docs
+            uri: http://localhost:8087
+            predicates:
+              - Path=/docs-listadeseos/v3/api-docs
+            filters:
+              - SetPath=/v3/api-docs
+
+          # DOCS NOTIFICACIONES
+          - id: notificaciones-docs
+            uri: http://localhost:8088
+            predicates:
+              - Path=/docs-notificaciones/v3/api-docs
+            filters:
+              - SetPath=/v3/api-docs
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: Clientes API
+        url: /docs-clientes/v3/api-docs
+
+      - name: Catálogo API
+        url: /docs-catalogo/v3/api-docs
+
+      - name: Diseños API
+        url: /docs-disenos/v3/api-docs
+
+      - name: Pedidos API
+        url: /docs-pedidos/v3/api-docs
+
+      - name: Reseñas API
+        url: /docs-resenas/v3/api-docs
+
+      - name: Lista de Deseos API
+        url: /docs-listadeseos/v3/api-docs
+
+      - name: Notificaciones API
+        url: /docs-notificaciones/v3/api-docs
