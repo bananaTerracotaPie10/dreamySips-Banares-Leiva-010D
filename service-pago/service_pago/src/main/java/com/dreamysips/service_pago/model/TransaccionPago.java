@@ -37,10 +37,14 @@ public class TransaccionPago
     // cobro, reembolso, ajuste
 
 
-    @Schema (description= "id unico autoincremental", example="1")
+    @Schema (description= "Monto de la transaccion", example="10000")
     private int montoTransaccion;
+
+    @Schema (description= "Estado de la transaccion", example="aprobado")
     private String estadoTransaccion;
     // estado: pendiente, aprobado, rechazado
+
+    @Schema (description= "Fecha de la transaccion", example="2026-06-18T18:16:00")
     private LocalDateTime fechaTransaccion;
 
 
