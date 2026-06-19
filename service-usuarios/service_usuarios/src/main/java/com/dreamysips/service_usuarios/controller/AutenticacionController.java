@@ -13,6 +13,8 @@ import com.dreamysips.service_usuarios.model.Usuario;
 import com.dreamysips.service_usuarios.service.AuthService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -23,30 +25,42 @@ public class AutenticacionController
 
     @Autowired
     private AuthService authService;
-    @Operation (summary = "Registrar un nuevo usuario", description = "Guarda el usuario con la contraseña encriptada")
-    @PostMapping ("/registrar")
-    public ResponseEntity <String> registrar (@RequestBody Usuario usuario)
-    {
-        return ResponseEntity.ok(authService.registrar(usuario));
+    
+    @Operation(summary = "Registrar un nuevo usuario",
+                description = "Guarda el usuario con la contraseña encriptada")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Usuario registrado correctamente"),
+        @ApiResponse(responseCode = "400", description = "Datos inválidos")
+    })
+    @PostMapping("/registrar")
+    public ResponseEntity<String> registrar(@RequestBody Usuario usuario) {
+
+        return ResponseEntity.ok(
+                authService.registrar(usuario));
     }
-    @Operation (summary = "Iniciar sesion", description = "Retorna un token JWT si las credenciales son validas")
-    @PostMapping ("/login")
-    public ResponseEntity <String> login (@RequestBody AuthRequest request)
-    {
 
-        try
-        {
+    @Operation(summary = "Iniciar sesión",
+                description = "Retorna un token JWT si las credenciales son válidas")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Login exitoso"),
+        @ApiResponse(responseCode = "401", description = "Credenciales inválidas")
+    })
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody AuthRequest request) {
 
-            String token = authService.login(request.getNombreUsuario(), request.getPassword());
+        try {
+
+            String token = authService.login(
+                    request.getNombreUsuario(),
+                    request.getPassword());
+
             return ResponseEntity.ok(token);
-            
-        }
-        catch (RuntimeException e)
-        {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-        }
 
+        } catch (RuntimeException e) {
+
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(e.getMessage());
+        }
     }
-
-
 }

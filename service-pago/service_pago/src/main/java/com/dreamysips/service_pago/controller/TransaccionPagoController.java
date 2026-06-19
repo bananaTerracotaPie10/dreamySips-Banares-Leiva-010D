@@ -17,60 +17,77 @@ import com.dreamysips.service_pago.model.TransaccionPago;
 import com.dreamysips.service_pago.service.TransaccionPagoService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/api/v1/transaccion")
+@RequestMapping("/api/v1/transacciones")
 @Tag(name = "Transacciones", description = "Operaciones de transacciones")
 @CrossOrigin (origins = "*")
-public class TransaccionPagoController 
-{
+public class TransaccionPagoController{
 
     @Autowired
     private TransaccionPagoService transaccionPagoService;
     
 
-    @Operation (summary= "Crear transaccion", description= "Registra una transaccion en db_pagos")
+    @Operation(summary = "Crear transacción")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Transacción creada"),
+        @ApiResponse(responseCode = "404", description = "Pago no encontrado")
+    })
     @PostMapping("/{idPago}")
-    public TransaccionPago crear(@PathVariable Long idPago, @RequestBody TransaccionPago transaccion) 
+    public TransaccionPago crear(@Parameter(description = "ID del pago")
+            @PathVariable Long idPago,
+            @RequestBody TransaccionPago transaccion) 
     {
-        return transaccionPagoService.guardar(idPago, transaccion);
+        return transaccionPagoService.guardar(
+                idPago,
+                transaccion);
     }
 
-    
-    @Operation (summary= "Obtener todas las transacciones", description= "Retorna una lista con todas las transacciones registradas en db_pagos")
+    @Operation(summary = "Obtener todas las transacciones")
+    @ApiResponse(responseCode = "200", description = "Lista obtenida correctamente")
     @GetMapping
-    public List <TransaccionPago> listar()
-    {
+    public List<TransaccionPago> listar() {
         return transaccionPagoService.listarTodos();
     }
 
-    @Operation (summary= "Buscar por id", description= "Busca una transaccion por id en db_pagos")
+    @Operation(summary = "Buscar transacción por ID")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Transacción encontrada"),
+        @ApiResponse(responseCode = "404", description = "Transacción no encontrada")
+    })
     @GetMapping("/{id}")
-    public ResponseEntity<TransaccionPago> buscarPorId(@PathVariable Long id) 
+    public ResponseEntity<TransaccionPago> buscarPorId(@Parameter(description = "ID de la transacción")
+            @PathVariable Long id) 
     {
         return transaccionPagoService.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @Operation (summary= "Buscar por estado", description= "Busca una transaccion por estado en db_pagos")
+    @Operation(summary = "Buscar transacciones por estado")
+    @ApiResponse(responseCode = "200", description = "Transacciones encontradas")
     @GetMapping("/estado/{estado}")
-    public List<TransaccionPago> buscarPorEstado(@PathVariable String estado) 
+    public List<TransaccionPago> buscarPorEstado(@Parameter(description = "Estado de la transacción")
+            @PathVariable String estado) 
     {
         return transaccionPagoService.buscarPorEstadoTransaccion(estado);
     }
 
-
-    @Operation (summary= "Eliminar transaccion", description= "Borra una transaccion en db_pagos")
+    @Operation(summary = "Eliminar transacción")
+    @ApiResponses({
+        @ApiResponse(responseCode = "204", description = "Transacción eliminada"),
+        @ApiResponse(responseCode = "404", description = "Transacción no encontrada")
+    })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id) 
+    public ResponseEntity<Void> eliminar(@Parameter(description = "ID de la transacción")
+            @PathVariable Long id) 
     {
         transaccionPagoService.eliminar(id);
+
         return ResponseEntity.noContent().build();
     }
-
-
-
-
 }
