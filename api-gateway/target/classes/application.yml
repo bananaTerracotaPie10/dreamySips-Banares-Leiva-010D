@@ -1,5 +1,9 @@
 server:
-  port: 8081
+  port: 8091
+
+
+jwt:
+  secret: "493358340235739058340598340598340598340598340598"
 
 spring:
   application:
@@ -9,17 +13,25 @@ spring:
     gateway:
       routes:
 
+        #USUARIOS
+        - id: service-usuarios
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/v1/usuarios/**, /api/v1/auth/**
+
         # CLIENTES
         - id: cliente-service
           uri: http://localhost:8082
           predicates:
-            - Path=/api/v1/clientes/**
+            - Path=/api/v1/clientes/**, /api/v1/direcciones/**
+          filters:
+            - AuthenticationFilter
 
         # CATÁLOGO
         - id: catalogo-service
           uri: http://localhost:8083
           predicates:
-            - Path=/api/v1/productos/**
+            - Path=/api/v1/productos/**, /api/v1/categoria/**
 
         # DISEÑOS
         - id: diseno-service
@@ -31,7 +43,9 @@ spring:
         - id: pedidos-service
           uri: http://localhost:8085
           predicates:
-            - Path=/api/v1/pedidos/**
+            - Path=/api/v1/pedidos/**, /api/v1/detalles/** 
+          filters:
+            - AuthenticationFilter
 
         # RESEÑAS
         - id: resenas-service
@@ -44,12 +58,36 @@ spring:
           uri: http://localhost:8087
           predicates:
             - Path=/api/v1/listadeseos/**
+          filters:
+            - AuthenticationFilter
 
         # NOTIFICACIONES
         - id: notificaciones-service
           uri: http://localhost:8088
           predicates:
             - Path=/api/v1/notificaciones/**
+          filters:
+            - AuthenticationFilter 
+        
+        # DESPACHO
+        - id: despacho-service
+          uri: http://localhost:8089
+          predicates:
+            - Path=/api/v1/despachos/**
+        
+        #PAGO
+        - id: service-pago
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/v1/pagos/**, /api/v1/transacciones/** 
+
+        # DOCUMENTACIÓN USUARIOS
+        - id: usuarios-docs
+          uri: http://localhost:8081
+          predicates:
+            - Path=/docs-usuarios/v3/api-docs
+          filters:
+            - SetPath=/v3/api-docs
 
         # DOCUMENTACIÓN CLIENTES
         - id: cliente-docs
@@ -107,6 +145,22 @@ spring:
           filters:
             - SetPath=/v3/api-docs
 
+        # DOCUMENTACIÓN DESPACHO
+        - id: despacho-docs
+          uri: http://localhost:8089
+          predicates:
+            - Path=/docs-despacho/v3/api-docs
+          filters:
+            - SetPath=/v3/api-docs
+        
+        # DOCUMENTACIÓN PAGO
+        - id: pago-docs
+          uri: http://localhost:8090
+          predicates:
+            - Path=/docs-pago/v3/api-docs
+          filters:
+            - SetPath=/v3/api-docs
+
 eureka:
   client:
     register-with-eureka: false
@@ -116,6 +170,8 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
     urls:
+      - name: Usuarios API
+        url: /docs-usuarios/v3/api-docs
       - name: Clientes API
         url: /docs-clientes/v3/api-docs
 
@@ -136,3 +192,14 @@ springdoc:
 
       - name: Notificaciones API
         url: /docs-notificaciones/v3/api-docs
+      
+      - name: Despacho API
+        url: /docs-despacho/v3/api-docs
+
+      - name: Pago API
+        url: /docs-pago/v3/api-docs
+
+logging:
+    level:
+      org.springframework.cloud.gateway: TRACE
+      org.springframework.http.server.reactive: DEBUG
