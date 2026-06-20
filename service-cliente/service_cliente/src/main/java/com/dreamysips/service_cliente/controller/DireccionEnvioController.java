@@ -16,6 +16,10 @@ import com.dreamysips.service_cliente.model.DireccionEnvio;
 import com.dreamysips.service_cliente.service.DireccionEnvioService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping ("/api/v1/direcciones")
@@ -26,15 +30,23 @@ public class DireccionEnvioController
     @Autowired
     private DireccionEnvioService direccionEnvioService;
 
+    @Operation(summary = "Listar direcciones")
+    @ApiResponse(responseCode = "200", description = "Lista obtenida correctamente")
     @GetMapping
-    public List <DireccionEnvio> listarDirecciones()
-    {
+    public List<DireccionEnvio> listarDirecciones() {
         return direccionEnvioService.listarDireccionEnvios();
     }
     
-    @GetMapping ("/{id}")
-    public ResponseEntity <DireccionEnvio> obtener (@PathVariable Long id)
-    {
+    @Operation(summary = "Buscar dirección por ID")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Dirección encontrada"),
+        @ApiResponse(responseCode = "404", description = "Dirección no encontrada")
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<DireccionEnvio> obtener(
+            @Parameter(description = "ID de la dirección")
+            @PathVariable Long id) {
+
         return direccionEnvioService.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -42,32 +54,57 @@ public class DireccionEnvioController
 
     //Los metodos obtenerPorCiudad y ObtenerPorComuna retornan una direccion
 
-    @GetMapping ("/ciudad/{ciudad}")
-    public ResponseEntity <DireccionEnvio> obtenerPorCiudad (@PathVariable String ciudad)
-    {
-        DireccionEnvio dir = direccionEnvioService.buscarPorCiudad(ciudad);
-        return dir != null ? ResponseEntity.ok(dir) : ResponseEntity.notFound().build();
+    @Operation(summary = "Buscar dirección por ciudad")
+    @GetMapping("/ciudad/{ciudad}")
+    public ResponseEntity<DireccionEnvio> obtenerPorCiudad(
+            @Parameter(description = "Ciudad")
+            @PathVariable String ciudad) {
+
+        DireccionEnvio dir =
+                direccionEnvioService.buscarPorCiudad(ciudad);
+
+        return dir != null
+                ? ResponseEntity.ok(dir)
+                : ResponseEntity.notFound().build();
     }
 
-    @GetMapping ("/comuna/{comuna}")
-    public ResponseEntity <DireccionEnvio> obtenerPorComuna (@PathVariable String comuna)
-    {
-        DireccionEnvio dir = direccionEnvioService.buscarPorComuna(comuna);
-        return dir != null ? ResponseEntity.ok(dir) : ResponseEntity.notFound().build();
+    @Operation(summary = "Buscar dirección por comuna")
+    @GetMapping("/comuna/{comuna}")
+    public ResponseEntity<DireccionEnvio> obtenerPorComuna(
+            @Parameter(description = "Comuna")
+            @PathVariable String comuna) {
+
+        DireccionEnvio dir =
+                direccionEnvioService.buscarPorComuna(comuna);
+
+        return dir != null
+                ? ResponseEntity.ok(dir)
+                : ResponseEntity.notFound().build();
     }
 
+    @Operation(summary = "Crear dirección de envío")
+    @ApiResponse(responseCode = "200", description = "Dirección creada")
     @PostMapping
-    public ResponseEntity<DireccionEnvio> crear(@RequestBody DireccionEnvio direccion) {
-        return ResponseEntity.ok(direccionEnvioService.guardar(direccion));
+    public ResponseEntity<DireccionEnvio> crear(
+            @RequestBody DireccionEnvio direccion) {
+
+        return ResponseEntity.ok(
+                direccionEnvioService.guardar(direccion));
     }
 
-    @DeleteMapping ("/{id}")
-    public ResponseEntity <Void> eliminar (@PathVariable Long id)
+    @Operation(summary = "Eliminar dirección")
+    @ApiResponses({
+        @ApiResponse(responseCode = "204", description = "Dirección eliminada"),
+        @ApiResponse(responseCode = "404", description = "Dirección no encontrada")
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@Parameter(description = "ID de la dirección")
+            @PathVariable Long id) 
     {
+
         direccionEnvioService.eliminar(id);
         return ResponseEntity.noContent().build();
     }
-
     
 
 }
