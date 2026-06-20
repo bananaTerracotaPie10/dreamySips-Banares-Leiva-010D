@@ -12,7 +12,7 @@ Cada microservicio es independiente y cuenta con su propia responsabilidad dentr
 
 | Microservicio   | Puerto | Función                                                       |
 | --------------- | ------ | ------------------------------------------------------------- |
-| API Gateway     | 8080   | Punto único de acceso a todos los microservicios              |
+| API Gateway     | 8091   | Punto único de acceso a todos los microservicios              |
 | Usuarios        | 8081   | Gestiona registro, autenticación y administración de usuarios |
 | Clientes        | 8082   | Administra información personal y de contacto de los clientes |
 | Catálogo        | 8083   | Gestiona productos, categorías, stock y precios               |
@@ -64,16 +64,16 @@ Para ejecutar el proyecto se requiere:
 Crear las bases de datos necesarias para cada microservicio:
 
 ```sql
-CREATE DATABASE db_usuarios;
+CREATE DATABASE db_seguridad;
 CREATE DATABASE db_clientes;
 CREATE DATABASE db_catalogo;
-CREATE DATABASE db_disenos;
+CREATE DATABASE db_diseno;
 CREATE DATABASE db_pedidos;
 CREATE DATABASE db_resenas;
 CREATE DATABASE db_listadeseos;
 CREATE DATABASE db_notificaciones;
 CREATE DATABASE db_despacho;
-CREATE DATABASE db_pago;
+CREATE DATABASE db_pagos;
 ```
 
 ---
@@ -121,7 +121,7 @@ Levantar los microservicios en el siguiente orden:
 8. Notificaciones (8088)
 9. Despacho (8089)
 10. Pago (8090)
-11. API Gateway (8080)
+11. API Gateway (8091)
 
 ## Paso 3
 
