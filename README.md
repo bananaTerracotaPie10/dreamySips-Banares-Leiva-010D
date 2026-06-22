@@ -85,7 +85,7 @@ Cada microservicio debe contar con su propio archivo `application.yml` o `applic
 Ejemplo de configuración:
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/db_catalogo
+spring.datasource.url=jdbc:mysql://localhost:3306/db_catalogo?createDatabaseIfNotExist=true
 spring.datasource.username=root
 spring.datasource.password=
 
